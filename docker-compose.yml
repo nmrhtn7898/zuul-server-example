@@ -1,0 +1,15 @@
+version: '3'
+networks:
+  eureka-server_myweb:
+    external: true
+services:
+  zuulserver:
+    container_name: "zuulserver"
+    image: zuul-proxy:1.0
+    ports:
+      - "5555:5555"
+    networks:
+      - eureka-server_myweb
+    environment:
+      RUN_MESSAGE: "HELLO ZUUL"
+

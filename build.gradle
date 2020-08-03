@@ -1,0 +1,81 @@
+plugins {
+    id 'org.springframework.boot' version '2.3.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.9.RELEASE'
+    id 'java'
+    id 'com.bmuschko.docker-spring-boot-application' version '6.6.0'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    set('springCloudVersion', "Hoxton.SR6")
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    implementation 'org.springframework.cloud:spring-cloud-starter-config'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-eureka-client'
+    implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+task copyFile {
+    doLast {
+        copy {
+            from 'src/main/resources/run.sh'
+            into 'build/libs/'
+        }
+    }
+}
+tasks.build.finalizedBy(copyFile)
+
+bootJar {
+    archiveFileName = "${rootProject.name}-${rootProject.version}.jar"
+}
+
+import com.bmuschko.gradle.docker.tasks.image.*
+
+task createDockerFile(type: Dockerfile) {
+    destFile = project.file('build/libs/Dockerfile') // 도커 파일 생성 경로
+    from('openjdk:8-jdk-alpine')
+    runCommand('apk update && apk upgrade && apk add netcat-openbsd && apk add curl')
+    addFile("${rootProject.name}-${rootProject.version}.jar", 'app.jar')
+    addFile("run.sh", "run.sh")
+    runCommand("chmod +x run.sh")
+    entryPoint("./run.sh")
+}
+
+task createDockerImage(type: DockerBuildImage) {
+    dependsOn(createDockerFile) // createDockerFile task에 의존 해당 task 수행 후 수행
+    dockerFile = project.file('build/libs/Dockerfile') // 도커 파일 경로
+    inputDir = project.file('build/libs') // 도커 파일 -> 이미지 빌드 작업 경로 컨텍스트
+    images.add("${rootProject.name}:1.0") // 도커 이미지 이름
+}
+
+// ./gradlew createDockerImage 커맨드 입력 시 사전 작업 task로 createDockerFile task 수행
