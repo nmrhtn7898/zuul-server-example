@@ -1,9 +1,28 @@
 server:
   port: 5555
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
 eureka:
   instance:
     prefer-ip-address: true
   client:
     service-url:
       defaultZone: http://eurekaserver:8761/eureka/
+
+logging:
+  level:
+      com.netflix: WARN
+      org.springframework.web: WARN
+      com.thoughtmechanix: DEBUG
+
+zuul:
+  prefix: /api
+  routes:
+    testservice: /organization/**
+    testservice2: /licensing/**
+  ignored-services: "*"
