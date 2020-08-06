@@ -9,6 +9,9 @@ import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
+/**
+ * HTTP 요청으로 전달된 헤더 정보들을 UserContext 인스턴스에 셋팅
+ */
 @Slf4j
 @Component
 public class UserContextFilter implements Filter {
