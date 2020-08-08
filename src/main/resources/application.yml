@@ -16,9 +16,9 @@ eureka:
 
 logging:
   level:
-      com.netflix: WARN
-      org.springframework.web: WARN
-      com.thoughtmechanix: DEBUG
+    com.netflix: WARN
+    org.springframework.web: WARN
+    com.example: DEBUG
 
 zuul:
   prefix: /api

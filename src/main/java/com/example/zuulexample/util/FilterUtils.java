@@ -1,4 +1,4 @@
-package com.example.zuulexample.utils;
+package com.example.zuulexample.util;
 
 import com.netflix.zuul.context.RequestContext;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class FilterUtils {
         if (StringUtils.hasText(orgId)) {
             return orgId;
         } else {
-            return requestContext.getZuulRequestHeaders().get(UserContext.ORG_ID);
+            return requestContext.getZuulRequestHeaders().get(UserContext.ORG_ID); // 주울 서버가 대상 서버를 호출할 때 합쳐지는 Map 데이터
         }
     }
 

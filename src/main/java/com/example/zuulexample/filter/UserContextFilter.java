@@ -1,7 +1,7 @@
-package com.example.zuulexample.filters;
+package com.example.zuulexample.filter;
 
-import com.example.zuulexample.utils.UserContext;
-import com.example.zuulexample.utils.UserContextHolder;
+import com.example.zuulexample.util.UserContext;
+import com.example.zuulexample.util.UserContextHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

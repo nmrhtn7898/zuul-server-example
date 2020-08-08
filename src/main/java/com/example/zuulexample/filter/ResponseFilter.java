@@ -1,8 +1,8 @@
-package com.example.zuulexample.filters;
+package com.example.zuulexample.filter;
 
 
-import com.example.zuulexample.utils.FilterUtils;
-import com.example.zuulexample.utils.UserContext;
+import com.example.zuulexample.util.FilterUtils;
+import com.example.zuulexample.util.UserContext;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.RequiredArgsConstructor;

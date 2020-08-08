@@ -1,4 +1,4 @@
-package com.example.zuulexample.utils;
+package com.example.zuulexample.util;
 
 
 import org.springframework.util.Assert;

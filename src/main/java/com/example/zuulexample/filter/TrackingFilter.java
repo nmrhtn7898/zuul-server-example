@@ -1,6 +1,6 @@
-package com.example.zuulexample.filters;
+package com.example.zuulexample.filter;
 
-import com.example.zuulexample.utils.FilterUtils;
+import com.example.zuulexample.util.FilterUtils;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +12,7 @@ import java.util.UUID;
 
 /**
  * 주울 리버스 프록시 게이트웨이로 들어오는 모든 요청을 처리하는 사전 필터, 필요한 헤더 정보 셋팅이나 인증 및 인가 처리 수행
+ * 서블릿 필터를 거친 후, 수행된 후 수행된다.
  */
 @Slf4j
 @Component
