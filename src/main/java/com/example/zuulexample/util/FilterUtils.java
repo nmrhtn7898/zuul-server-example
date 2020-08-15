@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 @Component
 public class FilterUtils {
 
+    // 필터 타입에 따라 요청 전, 후, 요청 라우팅 시 주울 필터 로직을 수행
     public static final String PRE_FILTER_TYPE = "pre";
 
     public static final String POST_FILTER_TYPE = "post";

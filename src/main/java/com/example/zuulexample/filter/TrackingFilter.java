@@ -11,13 +11,16 @@ import org.springframework.util.StringUtils;
 import java.util.UUID;
 
 /**
- * 주울 리버스 프록시 게이트웨이로 들어오는 모든 요청을 처리하는 사전 필터, 필요한 헤더 정보 셋팅이나 인증 및 인가 처리 수행
- * 서블릿 필터를 거친 후, 수행된 후 수행된다.
+ * 주울 리버스 프록시 게이트웨이로 들어오는 모든 요청을 처리하는 사전 필터
+ * 주울에서 호출하는 모든 서비들에게 보내는 요청에 필요한 헤더 정보 셋팅이나 주울에서 인증 및 인가 처리 수행
+ * 서블릿 필터를 거친 후 수행된다.
  */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class TrackingFilter extends ZuulFilter {
+
+    public static final int ORDER = 1;
 
     private final FilterUtils filterUtils;
 
@@ -36,7 +39,7 @@ public class TrackingFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() { // 필터 적용 순서
-        return 1;
+        return ORDER;
     }
 
     @Override

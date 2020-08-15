@@ -9,10 +9,16 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+/**
+ * 주울 리버스 프록시 게이트웨이로 들어오는 모든 응답을 처리하는 사후 필터
+ * 모든 주울 필터를 거친 후 클라이언트로 응답을 내보낼 때 수행된다.
+ */
 @Slf4j
 @Component
 @RequiredArgsConstructor
 public class ResponseFilter extends ZuulFilter {
+
+    public static final int ORDER = 1;
 
     private final FilterUtils filterUtils;
 
@@ -23,7 +29,7 @@ public class ResponseFilter extends ZuulFilter {
 
     @Override
     public int filterOrder() {
-        return 1;
+        return ORDER;
     }
 
     @Override
