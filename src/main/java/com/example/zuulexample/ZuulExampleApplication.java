@@ -18,6 +18,7 @@ public class ZuulExampleApplication {
     /**
      * 주울 API 게이트 웨이에서 서비스 인스턴스로 요청을 보낼떄는 별도의 Http Client르 사용하지만
      * RouteFilter에서 요청을 보내주는 경우 직접 사용할 클라이언트를 생성해서 사용할 수 있음
+     *
      * @return
      */
     @LoadBalanced
