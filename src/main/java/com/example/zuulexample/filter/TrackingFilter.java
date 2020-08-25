@@ -5,6 +5,8 @@ import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.HttpHead;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -58,6 +60,7 @@ public class TrackingFilter extends ZuulFilter {
         }
         RequestContext requestContext = RequestContext.getCurrentContext();
         log.debug("processing incoming request for {}.", requestContext.getRequest().getRequestURI());
+        log.debug("processing incoming token for {}.", requestContext.getRequest().getHeader(HttpHeaders.AUTHORIZATION));
         return null;
     }
 

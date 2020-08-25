@@ -26,3 +26,4 @@ zuul:
     testservice: /test/**
     testservice2: /test2/**
   ignored-services: "*"
+  sensitive-headers: Cookie,Set-Cook
